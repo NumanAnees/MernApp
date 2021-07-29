@@ -4,4 +4,6 @@ const app = express();
 app.get("/", (req, res) => {
   res.send("hello");
 });
-console.log("nice done");
+app.listen(3000, () => {
+  console.log("server is running at port 3000");
+});
