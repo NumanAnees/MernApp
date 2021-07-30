@@ -1,12 +1,17 @@
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 const express = require("express");
 const app = express();
+dotenv.config({ path: "./config.env" });
 
-const DB =
-  "mongodb+srv://Numan:someonehackedit@cluster0.buapl.mongodb.net/MernApp?retryWrites=true&w=majority";
-
+const DB = process.env.DB;
 mongoose
-  .connect(DB)
+  .connect(DB, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  })
   .then(() => {
     console.log("connection successfull");
   })
