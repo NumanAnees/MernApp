@@ -1,6 +1,18 @@
+const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 
+const DB =
+  "mongodb+srv://Numan:someonehackedit@cluster0.buapl.mongodb.net/MernApp?retryWrites=true&w=majority";
+
+mongoose
+  .connect(DB)
+  .then(() => {
+    console.log("connection successfull");
+  })
+  .catch((e) => {
+    console.log(e);
+  });
 app.get("/About", (req, res) => {
   res.send("hello from the about");
 });
