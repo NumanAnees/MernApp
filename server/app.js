@@ -4,6 +4,7 @@ const app = express();
 
 dotenv.config({ path: "./config.env" });
 require("./DB/connection");
+const User = require("./Models/userSchema");
 const PORT = process.env.PORT;
 
 app.get("/About", (req, res) => {
