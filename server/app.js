@@ -4,21 +4,11 @@ const app = express();
 
 dotenv.config({ path: "./config.env" });
 require("./DB/connection");
-const User = require("./Models/userSchema");
-const PORT = process.env.PORT;
+app.use(express.json());
+//const User = require("./Models/userSchema");
+app.use(require("./routes/auth"));
 
-app.get("/About", (req, res) => {
-  res.send("hello from the about");
-});
-app.get("/Contact", (req, res) => {
-  res.send("hello from the contact");
-});
-app.get("/Signin", (req, res) => {
-  res.send("hello from the Signin");
-});
-app.get("/Singup", (req, res) => {
-  res.send("hello from the Singnup");
-});
+const PORT = process.env.PORT;
 
 app.listen(PORT, () => {
   console.log("server is running at port " + PORT);
