@@ -1,23 +1,11 @@
-const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const express = require("express");
 const app = express();
+
 dotenv.config({ path: "./config.env" });
+require("./DB/connection");
 const PORT = process.env.PORT;
-const DB = process.env.DB;
-mongoose
-  .connect(DB, {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
-  .then(() => {
-    console.log("connection successfull");
-  })
-  .catch((e) => {
-    console.log(e);
-  });
+
 app.get("/About", (req, res) => {
   res.send("hello from the about");
 });
