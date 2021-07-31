@@ -32,8 +32,35 @@ router.post("/register", async (req, res) => {
     res.status(201).json({
       message: "User created successfully",
     });
-  } catch (e) {
-    console.log(e);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+router.post("/signin", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(422).json({
+        error: "plz enter correct email and password",
+      });
+    }
+    const response = await User.findOne({ email: email });
+    if (response) {
+      if (response.password === password) {
+        return res.status(200).json({
+          message: "You loggedIn successfully",
+        });
+      }
+      res.json({
+        message: "Enter a valid password",
+      });
+    }
+    res.status(422).json({
+      error: "Invalid Email",
+    });
+  } catch (err) {
+    console.log(err);
   }
 });
 
