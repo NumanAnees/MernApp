@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 require("../DB/connection");
 const User = require("../Models/userSchema");
+const bcrypt = require("bcryptjs");
 
 router.post("/register", async (req, res) => {
   const { name, email, phone, work, password, cpassword } = req.body;
@@ -51,12 +52,13 @@ router.post("/signin", async (req, res) => {
     }
     const response = await User.findOne({ email: email });
     if (response) {
-      if (response.password === password) {
+      const isMatch = await bcrypt.compare(password, response.password);
+      if (isMatch) {
         return res.status(200).json({
           message: "You loggedIn successfully",
         });
       }
-      res.json({
+      res.status(422).json({
         message: "Enter a valid password",
       });
     }
