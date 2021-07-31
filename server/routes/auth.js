@@ -3,6 +3,7 @@ const router = express.Router();
 require("../DB/connection");
 const User = require("../Models/userSchema");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 router.post("/register", async (req, res) => {
   const { name, email, phone, work, password, cpassword } = req.body;
@@ -53,12 +54,14 @@ router.post("/signin", async (req, res) => {
     const response = await User.findOne({ email: email });
     if (response) {
       const isMatch = await bcrypt.compare(password, response.password);
+      const token = await response.generateToken();
+      console.log(token);
       if (isMatch) {
         return res.status(200).json({
           message: "You loggedIn successfully",
         });
       }
-      res.status(422).json({
+      return res.status(422).json({
         message: "Enter a valid password",
       });
     }
