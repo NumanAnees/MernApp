@@ -54,9 +54,12 @@ router.post("/signin", async (req, res) => {
     const response = await User.findOne({ email: email });
     if (response) {
       const isMatch = await bcrypt.compare(password, response.password);
-      const token = await response.generateToken();
-      console.log(token);
       if (isMatch) {
+        const token = await response.generateToken();
+        res.cookie("jwtoken", token, {
+          expires: new Date(Date.now() + 10000),
+          httpOnly: true,
+        });
         return res.status(200).json({
           message: "You loggedIn successfully",
         });
