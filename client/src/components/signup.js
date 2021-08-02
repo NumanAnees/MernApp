@@ -81,12 +81,6 @@ const signup = () => {
             <NavLink to="/signin">Login Here</NavLink>
           </p>
         </form>
-        <h4>Or Register With</h4>
-        <div className="social">
-          <i className="fab fa-facebook-f"></i>
-          <i className="fab fa-twitter"></i>
-          <i className="fab fa-google-plus-g"></i>
-        </div>
       </div>
     </div>
   );
