@@ -297,3 +297,15 @@ fieldset {
 :-ms-input-placeholder {
   color: #888;
 }
+div.error-page {
+  height: 90vh;
+  position: relative;
+}
+div.error-page .content {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
