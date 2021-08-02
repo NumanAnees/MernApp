@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
 const Signup = () => {
+  const history = useHistory();
   const [User, SetUser] = useState({
     name: "",
     email: "",
@@ -17,11 +18,38 @@ const Signup = () => {
     value = e.target.value;
     SetUser({ ...User, [name]: value });
   };
+  const PostData = async (e) => {
+    e.preventDefault();
+    const { name, email, work, phone, password, cpassword } = User;
+    const res = await fetch("/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        work,
+        phone,
+        password,
+        cpassword,
+      }),
+    });
+    const data = await res.json();
+    if (data.status === 422 || !data) {
+      window.alert("invalid user");
+      console.log("invalid user");
+    } else {
+      window.alert("successfully added");
+      console.log("successfully added");
+      history.push("/signin ");
+    }
+  };
   return (
     <div className="holder">
       <div className="parent">
         <h3>Sign Up</h3>
-        <form action="">
+        <form method="POST">
           <div>
             <input
               type="text"
@@ -101,6 +129,7 @@ const Signup = () => {
               id="signup"
               className="form-submit"
               value="register"
+              onClick={PostData}
             />
           </div>
           <p>
