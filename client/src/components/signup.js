@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 
-const signup = () => {
+const Signup = () => {
+  const [User, SetUser] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    work: "",
+    password: "",
+    cpassword: "",
+  });
+  let name, value;
+  const handleinp = (e) => {
+    console.log(e.target.value);
+    name = e.target.name;
+    value = e.target.value;
+    SetUser({ ...User, [name]: value });
+  };
   return (
     <div className="holder">
       <div className="parent">
@@ -14,6 +29,8 @@ const signup = () => {
               name="name"
               id="name"
               required
+              value={User.name}
+              onChange={handleinp}
             />
             <span className="border"></span>
           </div>
@@ -24,6 +41,8 @@ const signup = () => {
               name="email"
               id="email"
               required
+              value={User.email}
+              onChange={handleinp}
             />
             <span className="border"></span>
           </div>
@@ -34,6 +53,8 @@ const signup = () => {
               name="work"
               id="work"
               required
+              value={User.work}
+              onChange={handleinp}
             />
             <span className="border"></span>
           </div>
@@ -44,6 +65,8 @@ const signup = () => {
               name="phone"
               id="phone"
               required
+              value={User.phone}
+              onChange={handleinp}
             />
             <span className="border"></span>
           </div>
@@ -54,6 +77,8 @@ const signup = () => {
               name="password"
               id="password"
               required
+              value={User.password}
+              onChange={handleinp}
             />
             <span className="border"></span>
           </div>
@@ -64,6 +89,8 @@ const signup = () => {
               name="cpassword"
               id="cpassword"
               required
+              value={User.cpassword}
+              onChange={handleinp}
             />
             <span className="border"></span>
           </div>
@@ -86,4 +113,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default Signup;
