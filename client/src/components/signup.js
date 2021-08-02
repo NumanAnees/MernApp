@@ -36,13 +36,13 @@ const Signup = () => {
       }),
     });
     const data = await res.json();
-    if (data.status === 422 || !data) {
+    if (res.status === 422 || !data) {
       window.alert("invalid user");
       console.log("invalid user");
     } else {
       window.alert("successfully added");
       console.log("successfully added");
-      history.push("/signin ");
+      history.push("/signin");
     }
   };
   return (
